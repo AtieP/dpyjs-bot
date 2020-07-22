@@ -1,0 +1,139 @@
+{
+    "bot": {
+        "token": "token-here - did you think i was going to put my token here? lol",
+        "prefix": "b!",
+        "internal_perms": [array_of_user_ids_with_internal_permissions_here, ...]
+    },
+
+    "style": {
+        "colors": {
+            "member_join_color": 8440738,
+            "member_remove_color": 16737894,
+            "member_mute_color": 16750899,
+            "member_warn_color": 16750899,
+            "member_kick_color": 16750899,
+            "member_tempban_color": 16737894,
+            "member_ban_color": 16737894,
+            "member_infraction_expired": 8440738,
+            "bot_submission_color": 8440738,
+            "bot_submission_approved": 8440738,
+            "bot_submission_denied": 16737894,
+            "staff_message": 8440738,
+            "normal": 7506394
+        },
+
+        "icons": {}
+    },
+
+    "server": {
+        "text-channels": {
+
+            "public": {
+                "welcome": 715210274411642933,
+                "verify": 715216716849741845,
+                "rules": 715210702251360276,
+                "self-roles": 715238605374750741,
+                "status": 717029062069190687,
+                "updates": 717029828976574554,
+                "announcements": 717029914360020992,
+                "mod-logs": 722832289955971183,
+                "general": 715212083486261330,
+                "international": 715212885936046191,
+                "off-topic": 715213169148297226,
+                "bot-commands": 715214583865802844,
+                "user-bots": 717038947846455406,
+                "submit-a-bot": 722528902152585436,
+                "py-development": 715213804970967090,
+                "py-development-2": 715214174069850172,
+                "js-development": 715214140276211803,
+                "js-development-2": 715214208966328321,
+                "testing-1": 717867181827817984,
+                "testing-2": 717867341333004328,
+                "how-to-python": 721424149414674512,
+                "how-to-javascript": 721425343008997416
+            },
+
+            "staff": {
+                "mod-logs-admin": 722850761259745290,
+                "staff-announcements": 721331398614581281,
+                "staff-chat": 715214195406274661,
+                "staff-rules": 724656270090436678,
+                "need-help": 723899730714820720,
+                "bumping": 715224150318514259,
+                "modlog-carlbot": 715222467559424093,
+                "staff-commands": 724617282978054204,
+                "bot-submits": 731182925017514056
+            }
+
+        },
+
+        "voice-channels": {
+            "General Voice": 715214990357037087,
+            "General Voice 2": 715215379982450699,
+            "Python Help": 715215452099313714,
+            "Python Help 2": 715215543941988484,
+            "JavaScript Help": 715215675773288558,
+            "JavaScript Help 2": 715215700179812376,
+            "AFK": 715215969227899021
+        },
+
+        "watchlist-words": [
+            "kill* +(?:yo)?urself+",
+            "(re+)tar+(d+|t+)(ed)?",
+            "cunts*",
+            "suicide",
+            "trann*y",
+            "nigg+(?:e*r+|a+h*?|u+h+)s?",
+            "fag+o+t+s*"
+        ],
+
+        "blacklist-websites": [
+            "pornhub.com",
+            "liveleak.com",
+            "grabify.link",
+            "disçordapp.com",
+            "stopify.com",
+            "fortnight.space",
+            "joinmy.site",
+            "yourtube.site",
+            "discord.gift",
+            "curiouscat.club",
+            "ssteam.site",
+            "yoütu.be",
+            "discörd.com",
+            "minecräft.com"
+        ],
+
+        "staff-roles": {
+            "names": {
+                "trial-staff": "Trial Staff",
+                "staff": "Staff",
+                "moderator": "Moderator",
+                "manager": "Manager",
+                "administrator": "Administrator",
+                "head-admins": "Head Admins",
+                "owner": "Owner"
+            },
+
+            "ids": {
+                "trial-staff": 718586753555890177,
+                "staff": 715214137331941396,
+                "moderator": 723543456844087346,
+                "manager": 723543597873365102,
+                "administrator": 723543499332386836,
+                "head-admins": 715209789315088475,
+                "owner": 715209664417103912
+            },
+
+        "public-roles": {
+             "names": {
+                 "human": "Human"
+             },
+
+             "ids": {
+                 "human": 715219408494133338
+             }
+          }
+        }
+    }
+}
