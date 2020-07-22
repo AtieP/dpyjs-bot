@@ -14,16 +14,18 @@ Before you run the bot from the first time, you must:
 - Create a replica of our server and edit the `config.json` file accordingly.
 
 # Run
-1. Set up the two enviroment variables: `DPYJS_DB_USER` (the Postgres username) and `DPYJS_DB_PASSWORD` (the Postgres user password).
+1. Set up the three enviroment variables: `DPYJS_DB_USER` (the Postgres username), `DPYJS_DB_PASSWORD` (the Postgres user password) and `DPYJS_BOT_TOKEN` (the bot token).
 - On Windows:
 ```batch
 set DPYJS_DB_USER=postgres_user_name
 set DPYJS_DB_PASSWORD=postgres_user_password
+set DPYJS_BOT_TOKEN=bot_token
 ```
 - On Linux:
 ```bash
 export DPYJS_DB_USER=postgres_user_name
 export DPYJS_DB_PASSWORD=postgres_user_password
+export DPYJS_BOT_TOKEN=bot_token
 ```
 And then run on the main bot directory `pipenv run start`. You're done!
 
