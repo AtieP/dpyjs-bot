@@ -115,27 +115,29 @@
             "administrator":723543499332386836,
             "head-admins":715209789315088475,
             "owner":715209664417103912
-         },
-         "public-roles":{
-            "names":{
-               "human":"Human"
-            },
-            "ids":{
-               "human":715219408494133338
-            }
-         },
-         "bot-roles":{
-            "names":{
-               "bot-testers":"Bot testers",
-               "user-bot":"User Bot",
-               "bot-separator":"------User Bots------"
-            },
-            "ids":{
-               "bot-testers":722519476905574501,
-               "user-bot":717039041362526303,
-               "bot-separator":718601537303347270
-            }
          }
+       },
+       "public-roles":{
+          "names":{
+             "human":"Human"
+          },
+          "ids":{
+             "human":715219408494133338
+          }
+       },
+       "bot-roles":{
+          "names":{
+             "bot-testers":"Bot testers",
+             "user-bot":"User Bot",
+             "bot-separator":"------User Bots------"
+          },
+          "ids":{
+             "bot-testers":722519476905574501,
+             "user-bot":717039041362526303,
+             "bot-separator":718601537303347270
+          }
+       }
+
       }
    }
 }
