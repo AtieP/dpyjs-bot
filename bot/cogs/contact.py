@@ -32,14 +32,14 @@ class ContactCog(commands.Cog):
     @commands.has_role("Staff")
     async def contact(self, ctx: commands.Context, member: discord.Member, *, message: str) -> None:
         """Sends a message to a member of the guild via the bot not anonymously."""
-        
+
         embed: discord.Embed = discord.Embed(
             title="Message from staff",
             description=textwrap.shorten(message, 1910, placeholder="..."),
             color=self.bot.constants["style"]["colors"]["staff_message"]
         )
         embed.set_author(name=str(ctx.author), icon_url=str(ctx.author.avatar_url))
-        
+
         try:
             await member.send(embed=embed)
 
@@ -75,14 +75,14 @@ class ContactCog(commands.Cog):
     @commands.has_role("Staff")
     async def acontact(self, ctx: commands.Context, member: discord.Member, *, message: str) -> None:
         """Sends a message to a member of the guild via the bot anonymously."""
-        
+
         embed: discord.Embed = discord.Embed(
             title="Message from staff",
             description=textwrap.shorten(message, 1910, placeholder="..."),
             color=self.bot.constants["style"]["colors"]["staff_message"]
         )
         embed.set_author(name="Staff member")
-        
+
         try:
             await member.send(embed=embed)
 
@@ -104,5 +104,5 @@ class ContactCog(commands.Cog):
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
 
-def setup(bot: Bot):
+def setup(bot: Bot) -> None:
     bot.add_cog(ContactCog(bot))

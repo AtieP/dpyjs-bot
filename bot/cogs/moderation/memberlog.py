@@ -44,7 +44,7 @@ class ModLogCog(commands.Cog):
         if not mod_log_channel: return
 
         embed: discord.Embed = discord.Embed(
-            title="Member joined", 
+            title="Member joined",
             color=self.bot.constants["style"]["colors"]["member_join_color"]
         )
         embed.add_field(name="Member", value=member.mention, inline=False)
@@ -88,7 +88,7 @@ class ModLogCog(commands.Cog):
         if not mod_log_channel: return
 
         embed: discord.Embed = discord.Embed(
-            title="Member left", 
+            title="Member left",
             color=self.bot.constants["style"]["colors"]["member_remove_color"]
         )
         embed.add_field(name="Member", value=str(member), inline=False)
@@ -96,7 +96,7 @@ class ModLogCog(commands.Cog):
         embed.add_field(name="Bot?", value="Yes" if member.bot else "No")
         embed.set_thumbnail(url=member.avatar_url)
         await mod_log_channel.send(embed=embed)
-        
 
-def setup(bot: Bot):
+
+def setup(bot: Bot) -> None:
     bot.add_cog(ModLogCog(bot))

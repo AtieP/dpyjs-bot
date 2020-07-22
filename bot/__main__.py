@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from .bot import Bot
 
-def main():
+def main() -> None:
 
     bot = Bot("None")
     bot.command_prefix = commands.when_mentioned_or(bot.constants["bot"]["prefix"])

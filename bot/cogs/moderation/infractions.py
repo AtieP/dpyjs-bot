@@ -22,7 +22,7 @@ class Infractions(commands.Cog):
         infractor: t.Union[discord.Member, discord.User],
         action_type: str,
         reason: t.Union[str, None],
-        inserted_at: datetime.datetime.now, 
+        inserted_at: datetime.datetime.now,
         expires_at: t.Union[datetime.datetime.now, None]
     ) -> None:
         """Logs an infraction into the mod-log channel."""
@@ -34,7 +34,7 @@ class Infractions(commands.Cog):
             title="Infraction",
             color=self.bot.constants["style"]["colors"]["normal"]
         )
-        
+
         embed.add_field(name="Type", value=action_type, inline=False)
         embed.add_field(name="Infractor", value=f"<@{infractor.id}>", inline=False)
         embed.add_field(name="Infractor ID", value=str(infractor.id), inline=False)
@@ -47,8 +47,8 @@ class Infractions(commands.Cog):
         await mod_log_channel.send(embed=embed)
 
     def save_infraction_into_db(
-        self, 
-        moderator: discord.Member, 
+        self,
+        moderator: discord.Member,
         infractor: t.Union[discord.Member, discord.User],
         action_type: str,
         reason: t.Union[str, None],
@@ -66,7 +66,7 @@ class Infractions(commands.Cog):
             moderator_id, infractor_id, action_type, reason, hidden, inserted_at, expires_at)
             VALUES
             (%s, %s, %s, %s, %s, %s, %s)""",
-            (moderator.id, infractor.id, action_type, reason, hidden, str(inserted_at), 
+            (moderator.id, infractor.id, action_type, reason, hidden, str(inserted_at),
             str(expires_at) if expires_at else None)
         )
 
@@ -91,10 +91,10 @@ class Infractions(commands.Cog):
 
         elif ctx.me.top_role <= member.top_role:
             await ctx.send(":x: **ERROR:** I can't kick a member that has a higher or equal role than mine.")
-            return 
+            return
 
-        if not reason: reason = "No reason specified." 
-        reason = textwrap.shorten(reason, 512, placeholder="...") 
+        if not reason: reason = "No reason specified."
+        reason = textwrap.shorten(reason, 512, placeholder="...")
 
         # Send a message to the offender.
         try:
@@ -106,7 +106,7 @@ class Infractions(commands.Cog):
             embed.add_field(name="Expiry", value="Right now", inline=False)
             embed.add_field(name="Reason", value=reason, inline=False)
             await member.send(embed=embed)
-        
+
         except discord.Forbidden:
             pass
 
@@ -129,7 +129,7 @@ class Infractions(commands.Cog):
             reason,
             datetime.datetime.now(),
             "Right now"
-        )  
+        )
 
         await ctx.send(f":white_check_mark: **SUCCESS:** Kicked {member.mention} for {reason}")
 
@@ -332,5 +332,5 @@ class Infractions(commands.Cog):
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
 
-def setup(bot: Bot):
+def setup(bot: Bot) -> None:
     bot.add_cog(Infractions(bot))

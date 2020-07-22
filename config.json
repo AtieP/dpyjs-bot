@@ -1,8 +1,8 @@
 {
     "bot": {
-        "token": "token-here - did you think i was going to put my token here? lol",
+        "token": "NzIzMTY2OTIwODYxNDE3NTQy.XxCk-w.l7ICfCeJwXshrmzeeRyM6Ig5zK4",
         "prefix": "b!",
-        "internal_perms": [array_of_user_ids_with_internal_permissions_here, ...]
+        "internal_perms": [576071248933683250]
     },
 
     "style": {
