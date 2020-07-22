@@ -38,7 +38,7 @@ class ModLogCog(commands.Cog):
         self.bot.database_connection.commit()
 
         if row:
-            await member.add_roles(member.guild.get_role(722519476905574501))
+            await member.add_roles(member.guild.get_role(self.bot.constants["server"]["bot-roles"]["ids"]["bot-testers"]))
 
         mod_log_channel: discord.TextChannel = self.bot.get_channel(self.bot.constants["server"]["text-channels"]["staff"]["mod-logs-admin"])
         if not mod_log_channel: return
