@@ -12,6 +12,7 @@ Before you run the bot from the first time, you must:
 - Run `pipenv install` on the main bot directory to install the necessary packages and to also setup a virtual enviroment.
 - Create a PostgreSQL with the name of `dpyjs-bot-db` and run the `sql-setup.sql` file to setup all tables. Make sure to grant permissions to yourself!
 - Create a replica of our server and edit the `config.json` file accordingly.
+- Create folder `temp` on the main bot directory.
 
 # Run
 1. Set up the three enviroment variables: `DPYJS_DB_USER` (the Postgres username), `DPYJS_DB_PASSWORD` (the Postgres user password) and `DPYJS_BOT_TOKEN` (the bot token).
