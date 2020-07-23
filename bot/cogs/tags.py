@@ -13,7 +13,7 @@ class TagCog(commands.Cog):
 
     def __init__(self, bot: Bot) -> None:
         """Takes a parameter that must be an instance of bot.bot.Bot (see /bot/bot.py)."""
-        
+
         self.bot = bot
         self.__load_tags()
 
@@ -46,11 +46,10 @@ class TagCog(commands.Cog):
         """Sends a specific tag."""
 
         try:
-            embed = discord.Embed(description=self.tags_dict[tag_name])
+            embed = discord.Embed(description=self.tags_dict[tag_name], color=self.bot.constants["style"]["colors"]["normal"])
             await ctx.send(embed=embed)
 
         except KeyError:
-
             # Return tags with similar name.
             similar_tags = ""
             found_similar_tag = False
@@ -58,7 +57,7 @@ class TagCog(commands.Cog):
             for tag in self.tags_dict.keys():
                 if TagCog.similar(tag_name, tag) > 0.6:
                     found_similar_tag = True
-                    similar_tags += f"`{tag}` " 
+                    similar_tags += f"`{tag}` "
 
             if found_similar_tag:
                 await ctx.send(f"Could not find that tag. Did you mean one of these?\n{similar_tags}")
@@ -73,7 +72,7 @@ class TagCog(commands.Cog):
         for tag in self.tags_dict.keys():
             tags += f"`{tag}` "
 
-        embed = discord.Embed(title="Available tags", description=tags)
+        embed = discord.Embed(title="Available tags", description=tags, color=self.bot.constants["style"]["colors"]["normal"])
         await ctx.send(embed=embed)
 
     @staticmethod

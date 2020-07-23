@@ -32,7 +32,8 @@ class VerificationCog(commands.Cog):
         and you can invite your bot to our server!
 
         **To verify, please type the content of the following captcha.
-        You have 20 seconds to type it.**""")
+        You have 20 seconds to type it.**""",
+        color=self.bot.constants["style"]["colors"]["normal"])
 
         await member.send(embed=embed)
         await self.__verify(member)
@@ -97,7 +98,8 @@ class VerificationCog(commands.Cog):
         <#{self.bot.constants['server']['text-channels']['public']['py-development']}> - Python help
         <#{self.bot.constants['server']['text-channels']['public']['js-development']}> - Javascript help
         <#{self.bot.constants['server']['text-channels']['public']['how-to-python']}> - Python examples
-        <#{self.bot.constants['server']['text-channels']['public']['how-to-javascript']}> - Javascript examples""")
+        <#{self.bot.constants['server']['text-channels']['public']['how-to-javascript']}> - Javascript examples""",
+        color=self.bot.constants["style"]["colors"]["normal"])
 
         # Send embed.
         await member.send(embed=embed)
