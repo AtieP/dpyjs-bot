@@ -2,7 +2,9 @@
 
 import datetime
 import discord
+import itertools
 import typing as t
+
 
 from discord.ext import commands
 from bot.bot import Bot
@@ -28,13 +30,20 @@ class ManagementCog(commands.Cog):
         row = self.bot.database_cursor.fetchall()
         self.bot.database_connection.commit()
 
+        # Check if there are no infractions for that user.
+        flatten = itertools.chain.from_iterable
+        infractions_list_flatten = list(flatten(row))
+        if not infractions_list_flatten:
+            await ctx.send(":x: **ERROR:** This user has no infractions.")
+            return
+
         embed: discord.Embed = discord.Embed(
             title="Infractions",
             description=f"Infractions for <@{user if isinstance(user, int) else user.id}> (ID: {user if isinstance(user, int) else user.id})",
             color=self.bot.constants["style"]["colors"]["normal"]
         )
         embed.add_field(name="Infraction count", value=len(row), inline=False)
-        embed.add_field(name="Infraction IDs", value=','.join(str(infr_id) for infr_id in row), inline=False)
+        embed.add_field(name="Infraction IDs", value=str(row).lstrip("([").rstrip("])").rstrip(","), inline=False)
         await ctx.send(embed=embed)
 
     @infractions.error
@@ -43,7 +52,7 @@ class ManagementCog(commands.Cog):
             await ctx.send(':x: **ERROR:** You don\'t have "Staff" role.')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(':x: **ERROR:** You missed the user parameter.')
-        elif isinstance(error, commands.errors.BadArgument):
+        elif isinstance(error, commands.errors.BadUnionArgument):
             await ctx.send(':x: **ERROR:** Invalid user specified.')
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
