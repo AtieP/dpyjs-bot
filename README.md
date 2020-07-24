@@ -34,7 +34,7 @@ export DPYJS_BOT_TOKEN=bot_token
 And then run on the main bot directory `pipenv run start`. You're done!
 
 # Contribution guide
-Thanks for wishing to contribute to this bot!
+Thanks for willing to contribute to this bot!
 
 ## Style guide for issues
 Just provide helpful information like a complete description, screenshots...
