@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/github/license/python-discord/bot)](LICENSE)
+[![Website](https://img.shields.io/badge/website-visit-brightgreen)](https://dpyjs.xyz/)
+
 # dpyjs-bot
 Bot for the "Discord.py &amp; Discord.js" community. This bot is supposed to be only run there, but you can also host it on your own server!
 
