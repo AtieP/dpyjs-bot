@@ -171,9 +171,8 @@ class UserbotsCog(commands.Cog):
             except discord.Forbidden:
                 await ctx.send(f":warning: **WARNING:** Could not DM {bot_owner.mention} (the owner of {bot.mention}).")
 
-        # Add the user bot roles to the user bot.
+        # Add the user bot role to the user bot.
         await bot.add_roles(ctx.guild.get_role(self.bot.constants["server"]["bot-roles"]["ids"]["user-bot"]))
-        await bot.add_roles(ctx.guild.get_role(self.bot.constants["server"]["bot-roles"]["ids"]["bot-separator"]))
 
         # Remove Bot Testers role.
         await bot.remove_roles(ctx.guild.get_role(self.bot.constants["server"]["bot-roles"]["ids"]["bot-testers"]))

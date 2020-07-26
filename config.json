@@ -128,13 +128,11 @@
        "bot-roles":{
           "names":{
              "bot-testers":"Bot testers",
-             "user-bot":"User Bot",
-             "bot-separator":"------User Bots------"
+             "user-bot":"User Bot"
           },
           "ids":{
              "bot-testers":722519476905574501,
-             "user-bot":717039041362526303,
-             "bot-separator":718601537303347270
+             "user-bot":717039041362526303
           }
        }
 
