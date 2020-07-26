@@ -82,7 +82,7 @@ class Infractions(commands.Cog):
             return
 
         elif ctx.author.top_role <= member.top_role:
-            await ctx.send(":x: **ERROR:** You can only kick people with a role below that yours.")
+            await ctx.send(":x: **ERROR:** You can only kick people with a role below than yours.")
             return
 
         if ctx.me.top_role <= member.top_role and ctx.author == member:
@@ -154,7 +154,7 @@ class Infractions(commands.Cog):
             return
 
         elif ctx.author.top_role <= member.top_role:
-            await ctx.send(":x: **ERROR:** You can only shadow-kick people with a role below that yours.")
+            await ctx.send(":x: **ERROR:** You can only shadow-kick people with a role below than yours.")
             return
 
         if ctx.me.top_role <= member.top_role and ctx.author == member:
@@ -212,7 +212,7 @@ class Infractions(commands.Cog):
             return
 
         elif ctx.author.top_role <= member.top_role:
-            await ctx.send(":x: **ERROR:** You can only ban people with a role below that yours.")
+            await ctx.send(":x: **ERROR:** You can only ban people with a role below than yours.")
             return
 
         if ctx.me.top_role <= member.top_role and ctx.author == member:
@@ -284,7 +284,7 @@ class Infractions(commands.Cog):
             return
 
         elif ctx.author.top_role <= member.top_role:
-            await ctx.send(":x: **ERROR:** You can only shadow-ban people with a role below that yours.")
+            await ctx.send(":x: **ERROR:** You can only shadow-ban people with a role below than yours.")
             return
 
         if ctx.me.top_role <= member.top_role and ctx.author == member:
