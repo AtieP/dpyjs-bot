@@ -134,7 +134,25 @@
              "bot-testers":722519476905574501,
              "user-bot":717039041362526303
           }
-       }
+       },
+       "valid-file-extensions":[
+          "png",
+          "bmp",
+          "jpg",
+          "jpeg",
+          "gif",
+          "mkv",
+          "mp4",
+          "webm",
+          "svg",
+          "mov",
+          "mp3",
+          "wav",
+          "ogg",
+          "tiff",
+          "xcf",
+          "avi"
+       ]
 
       }
 }

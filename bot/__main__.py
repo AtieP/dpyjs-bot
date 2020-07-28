@@ -10,6 +10,7 @@ def main() -> None:
     bot.command_prefix = commands.when_mentioned_or(bot.constants["bot"]["prefix"])
 
     # Add the cogs.
+    bot.load_extension("bot.cogs.antimalware")
     bot.load_extension("bot.cogs.contact")
     bot.load_extension("bot.cogs.owner")
     bot.load_extension("bot.cogs.tags")
