@@ -2,6 +2,7 @@
 
 import discord
 import discord.utils
+import textwrap
 
 from discord.ext import commands
 from captcha.image import ImageCaptcha
@@ -25,14 +26,14 @@ class VerificationCog(commands.Cog):
         default role."""
 
         # Text and description of the embed.
-        embed = discord.Embed(title="Welcome!", description=f"""Welcome to Discord.py and Discord.js Discord server!
+        embed = discord.Embed(title="Welcome!", description=textwrap.dedent(f"""Welcome to Discord.py and Discord.js Discord server!
 
         We are a community that aims to help both beginners and professionals
         who are into Discord.py and/or Discord.js. We also have code examples,
         and you can invite your bot to our server!
 
         **To verify, please type the content of the following captcha.
-        You have 20 seconds to type it.**""",
+        You have 20 seconds to type it.**"""),
         color=self.bot.constants["style"]["colors"]["normal"])
 
         await member.send(embed=embed)
@@ -88,7 +89,7 @@ class VerificationCog(commands.Cog):
             return
 
         # Embed to send to the user when it verified.
-        embed = discord.Embed(title="Verification completed!", description=f"""
+        embed = discord.Embed(title="Verification completed!", description=textwrap.dedent(f"""
         Thanks for verifying! Please visit:
 
         <#{self.bot.constants['server']['text-channels']['public']['rules']}> - Our server rules
@@ -98,7 +99,7 @@ class VerificationCog(commands.Cog):
         <#{self.bot.constants['server']['text-channels']['public']['py-development']}> - Python help
         <#{self.bot.constants['server']['text-channels']['public']['js-development']}> - Javascript help
         <#{self.bot.constants['server']['text-channels']['public']['how-to-python']}> - Python examples
-        <#{self.bot.constants['server']['text-channels']['public']['how-to-javascript']}> - Javascript examples""",
+        <#{self.bot.constants['server']['text-channels']['public']['how-to-javascript']}> - Javascript examples"""),
         color=self.bot.constants["style"]["colors"]["normal"])
 
         # Send embed.
