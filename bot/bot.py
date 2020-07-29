@@ -6,8 +6,10 @@ import os
 
 from discord.ext import commands
 
+
 class Bot(commands.Bot):
     """The main bot class."""
+
     def __init__(self, *args, **kwargs) -> None:
         """Sets up the bot instance."""
 
@@ -22,8 +24,8 @@ class Bot(commands.Bot):
     async def on_ready(self) -> None:
         """Called when the bot has connected to Discord successfully."""
 
-        self.logger_info(f"Connected to Discord as {self.user} (ID: {self.user.id})")
-
+        self.logger_info(
+            f"Connected to Discord as {self.user} (ID: {self.user.id})")
 
     async def on_message(self, message: discord.Message) -> None:
         """Handles on_message event."""
@@ -68,8 +70,10 @@ class Bot(commands.Bot):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
 
-        handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-        handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+        handler = logging.FileHandler(
+            filename='discord.log', encoding='utf-8', mode='w')
+        handler.setFormatter(logging.Formatter(
+            '%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 
         self.logger.addHandler(handler)
 

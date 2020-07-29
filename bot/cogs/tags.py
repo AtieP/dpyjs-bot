@@ -1,6 +1,5 @@
 """Tag management."""
 
-import discord
 import os
 import typing as t
 

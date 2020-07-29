@@ -10,6 +10,7 @@ pylint = "*"
 "discord.py" = "*"
 captcha = "*"
 psycopg2 = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"

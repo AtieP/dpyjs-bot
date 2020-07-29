@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from bot.bot import Bot
 
+
 class OwnerCog(commands.Cog):
     """Owner commands Cog class."""
 
@@ -18,9 +19,9 @@ class OwnerCog(commands.Cog):
         """Closes connection to Discord."""
 
         # Ensure a bot owner is executing this.
-        if not ctx.author.id in self.bot.constants["bot"]["internal_perms"]:
+        if ctx.author.id not in self.bot.constants["bot"]["internal_perms"]:
             return
-            
+
         await self.bot.close()
 
     @commands.command(name="reload-e", aliases=["reload-extension"])
@@ -28,14 +29,14 @@ class OwnerCog(commands.Cog):
         """Reloads an extension into the bot."""
 
         # Ensure a bot owner is executing this.
-        if not ctx.author.id in self.bot.constants["bot"]["internal_perms"]:
+        if ctx.author.id not in self.bot.constants["bot"]["internal_perms"]:
             return
 
         try:
             self.bot.reload_extension(extension)
 
-        except (commands.errors.ExtensionError, commands.errors.ExtensionFailed, commands.errors.ExtensionNotFound, \
-            commands.errors.ExtensionNotLoaded, commands.errors.ExtensionAlreadyLoaded) as e:
+        except (commands.errors.ExtensionError, commands.errors.ExtensionFailed, commands.errors.ExtensionNotFound,
+                commands.errors.ExtensionNotLoaded, commands.errors.ExtensionAlreadyLoaded) as e:
 
             await ctx.send(f"Something went wrong while reloading extension {extension}. Please, review the logs.")
             self.bot.logger_error(e)
@@ -48,7 +49,7 @@ class OwnerCog(commands.Cog):
         """Deletes the log file."""
 
         # Ensure a bot owner is executing this.
-        if not ctx.author.id in self.bot.constants["bot"]["internal_perms"]:
+        if ctx.author.id not in self.bot.constants["bot"]["internal_perms"]:
             return
 
         with open("discord.log", "w+") as log_file:
@@ -61,7 +62,7 @@ class OwnerCog(commands.Cog):
         """Executes SQL code."""
 
         # Ensure a bot owner is executing this.
-        if not ctx.author.id in self.bot.constants["bot"]["internal_perms"]:
+        if ctx.author.id not in self.bot.constants["bot"]["internal_perms"]:
             return
 
         try:
@@ -70,7 +71,7 @@ class OwnerCog(commands.Cog):
 
             if query.startswith("select"):
                 row = self.bot.database_cursor.fetchall()
-            
+
             await ctx.send(row if row else "Done")
 
         except BaseException as e:
@@ -78,6 +79,7 @@ class OwnerCog(commands.Cog):
 
         finally:
             self.bot.database_connection.commit()
+
 
 def setup(bot: Bot) -> None:
     bot.add_cog(OwnerCog(bot))

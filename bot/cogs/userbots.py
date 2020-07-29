@@ -8,6 +8,7 @@ import typing as t
 from discord.ext import commands
 from bot.bot import Bot
 
+
 class UserbotsCog(commands.Cog):
     """The main class for the user bot management."""
 
@@ -26,7 +27,8 @@ class UserbotsCog(commands.Cog):
             await asyncio.sleep(5)
             await bot_reply.delete()
 
-        bot_submits_mod_channel = self.bot.get_channel(self.bot.constants["server"]["text-channels"]["staff"]["bot-submits"])
+        bot_submits_mod_channel = self.bot.get_channel(
+            self.bot.constants["server"]["text-channels"]["staff"]["bot-submits"])
 
         if not bot_submits_mod_channel:
             await ctx.send(f':x: **FATAL ERROR:** Could not locate channel {self.bot.constants["server"]["text-channels"]["staff"]["bot-submits"]}. Please, contact the moderation team as soon as possible.')
@@ -69,13 +71,20 @@ class UserbotsCog(commands.Cog):
             else:
                 return
 
-        # If it doesn't exist, create a row on the user_bots table with the bot info.
+        # If it doesn't exist, create a row on the user_bots table with the bot
+        # info.
         self.bot.database_cursor.execute(
             """INSERT INTO user_bots (owner_id, bot_id, description, accepted, reviewed)
             VALUES
             (%s, %s, %s, %s, %s)""",
-            (ctx.author.id, valid_bot_id, textwrap.shorten(description, 1710, placeholder="..."), False, False)
-        )
+            (ctx.author.id,
+             valid_bot_id,
+             textwrap.shorten(
+                 description,
+                 1710,
+                 placeholder="..."),
+                False,
+                False))
 
         self.bot.database_connection.commit()
 
@@ -84,16 +93,25 @@ class UserbotsCog(commands.Cog):
             color=self.bot.constants["style"]["colors"]["bot_submission_color"]
         )
         embed.add_field(name="Submittor", value=str(ctx.author), inline=False)
-        embed.add_field(name="Submittor ID", value=str(ctx.author.id), inline=False)
-        embed.add_field(name="Invite link", value=f"https://discord.com/api/oauth2/authorize?client_id={valid_bot_id}&permissions=104188992&scope=bot", inline=False)
-        embed.add_field(name="Bot description", value=description, inline=False)
+        embed.add_field(
+            name="Submittor ID",
+            value=str(
+                ctx.author.id),
+            inline=False)
+        embed.add_field(
+            name="Invite link",
+            value=f"https://discord.com/api/oauth2/authorize?client_id={valid_bot_id}&permissions=104188992&scope=bot",
+            inline=False)
+        embed.add_field(
+            name="Bot description",
+            value=description,
+            inline=False)
         await bot_submits_mod_channel.send(embed=embed)
 
         embed: discord.Embed = discord.Embed(
             title="Bot submitted successfully!",
             description=f"Bot submitted succesfully, {ctx.author.mention}! We will DM you if it's approved or denied!",
-            color=self.bot.constants["style"]["colors"]["bot_submission_color"]
-        )
+            color=self.bot.constants["style"]["colors"]["bot_submission_color"])
         await ctx.send(embed=embed)
 
     @submit.error
@@ -110,7 +128,8 @@ class UserbotsCog(commands.Cog):
     async def approve(self, ctx: commands.Context, bot: discord.Member, *, reason: t.Optional[str] = None) -> None:
         """Command to accept user bots."""
 
-        if not reason: reason = "No reason specified."
+        if not reason:
+            reason = "No reason specified."
 
         # Check if the user bot is registered.
         self.bot.database_cursor.execute(
@@ -163,8 +182,7 @@ class UserbotsCog(commands.Cog):
                 embed: discord.Embed = discord.Embed(
                     title="Accepted!",
                     description=f"Your bot, {bot}, was accepted to our server! Reason:\n\n{textwrap.shorten(reason, 1910, placeholder='...')}",
-                    color=self.bot.constants["style"]["colors"]["bot_submission_approved"]
-                )
+                    color=self.bot.constants["style"]["colors"]["bot_submission_approved"])
                 embed.set_thumbnail(url=bot.avatar_url)
                 await bot_owner.send(embed=embed)
 
@@ -180,7 +198,8 @@ class UserbotsCog(commands.Cog):
         await ctx.send(f":white_check_mark: **SUCCESS:** {bot.mention} has been approved!")
 
         # Log it on the mod-log channel (public one).
-        mod_log_channel: discord.TextChannel = ctx.guild.get_channel(self.bot.constants["server"]["text-channels"]["public"]["mod-logs"])
+        mod_log_channel: discord.TextChannel = ctx.guild.get_channel(
+            self.bot.constants["server"]["text-channels"]["public"]["mod-logs"])
 
         if not mod_log_channel:
             await ctx.send(f":warning: **WARNING:** Could not find channel with ID {mod_log_channel}.")
@@ -188,10 +207,14 @@ class UserbotsCog(commands.Cog):
         else:
             embed: discord.Embed = discord.Embed(
                 title="Bot approval",
-                color=self.bot.constants["style"]["colors"]["bot_submission_approved"]
-            )
-            embed.add_field(name="Submittor", value=bot_owner.mention, inline=False)
-            embed.add_field(name="Submittor ID", value=str(bot_owner.id), inline=False)
+                color=self.bot.constants["style"]["colors"]["bot_submission_approved"])
+            embed.add_field(
+                name="Submittor",
+                value=bot_owner.mention,
+                inline=False)
+            embed.add_field(
+                name="Submittor ID", value=str(
+                    bot_owner.id), inline=False)
             embed.add_field(name="Bot", value=bot.mention, inline=False)
             embed.add_field(name="Bot ID", value=bot.id, inline=False)
 
@@ -262,10 +285,10 @@ class UserbotsCog(commands.Cog):
                 embed: discord.Embed = discord.Embed(
                     title="Denied",
                     description=f"Your bot, {bot}, was denied. Reason:\n\n{textwrap.shorten(reason, 1820, placeholder='...')}",
-                    color=self.bot.constants["style"]["colors"]["bot_submission_denied"]
-                )
+                    color=self.bot.constants["style"]["colors"]["bot_submission_denied"])
                 embed.set_thumbnail(url=bot.avatar_url)
-                embed.set_footer(text="Contact the staff again if you want us to review the bot again.")
+                embed.set_footer(
+                    text="Contact the staff again if you want us to review the bot again.")
                 await bot_owner.send(embed=embed)
 
             except discord.Forbidden:
@@ -274,7 +297,8 @@ class UserbotsCog(commands.Cog):
         await ctx.send(f":white_check_mark: **SUCCESS:** {bot.mention} has been denied.")
 
         # Log it on the mod-log channel (public one).
-        mod_log_channel: discord.TextChannel = ctx.guild.get_channel(self.bot.constants["server"]["text-channels"]["public"]["mod-logs"])
+        mod_log_channel: discord.TextChannel = ctx.guild.get_channel(
+            self.bot.constants["server"]["text-channels"]["public"]["mod-logs"])
 
         if not mod_log_channel:
             await ctx.send(f":warning: **WARNING:** Could not find channel with ID {mod_log_channel}.")
@@ -282,10 +306,14 @@ class UserbotsCog(commands.Cog):
         else:
             embed: discord.Embed = discord.Embed(
                 title="Bot denial",
-                color=self.bot.constants["style"]["colors"]["bot_submission_denied"]
-            )
-            embed.add_field(name="Submittor", value=bot_owner.mention, inline=False)
-            embed.add_field(name="Submittor ID", value=str(bot_owner.id), inline=False)
+                color=self.bot.constants["style"]["colors"]["bot_submission_denied"])
+            embed.add_field(
+                name="Submittor",
+                value=bot_owner.mention,
+                inline=False)
+            embed.add_field(
+                name="Submittor ID", value=str(
+                    bot_owner.id), inline=False)
             embed.add_field(name="Bot", value=bot.mention, inline=False)
             embed.add_field(name="Bot ID", value=bot.id, inline=False)
 
@@ -323,14 +351,33 @@ class UserbotsCog(commands.Cog):
             title=f"User bot #{row[5]}",
             color=self.bot.constants["style"]["colors"]["normal"]
         )
-        embed.add_field(name="User bot owner", value=f"<@{row[0]}>", inline=False)
-        embed.add_field(name="User bot owner ID", value=str(row[0]), inline=False)
-        embed.add_field(name="User bot name", value=f"<@{row[1]}>", inline=False)
+        embed.add_field(
+            name="User bot owner",
+            value=f"<@{row[0]}>",
+            inline=False)
+        embed.add_field(
+            name="User bot owner ID",
+            value=str(
+                row[0]),
+            inline=False)
+        embed.add_field(
+            name="User bot name",
+            value=f"<@{row[1]}>",
+            inline=False)
         embed.add_field(name="User bot ID", value=str(row[1]), inline=False)
         embed.add_field(name="Description", value=row[2], inline=False)
-        embed.add_field(name="Invite link", value=f"https://discord.com/api/oauth2/authorize?client_id={row[1]}&permissions=104188992&scope=bot", inline=False)
-        embed.add_field(name="Reviewed", value="Yes" if row[4] else "No", inline=False)
-        embed.add_field(name="Accepted", value="Yes" if row[3] else "No", inline=False)
+        embed.add_field(
+            name="Invite link",
+            value=f"https://discord.com/api/oauth2/authorize?client_id={row[1]}&permissions=104188992&scope=bot",
+            inline=False)
+        embed.add_field(
+            name="Reviewed",
+            value="Yes" if row[4] else "No",
+            inline=False)
+        embed.add_field(
+            name="Accepted",
+            value="Yes" if row[3] else "No",
+            inline=False)
         await ctx.send(embed=embed)
 
         # https://vine.co/v/eFVeetKwMM7
