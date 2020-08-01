@@ -397,5 +397,6 @@ class Infractions(commands.Cog):
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
 
+
 def setup(bot: Bot) -> None:
     bot.add_cog(Infractions(bot))
