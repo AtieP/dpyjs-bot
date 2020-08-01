@@ -61,7 +61,7 @@ class UserbotsCog(commands.Cog):
                 return
 
             elif row[0] is False and row[1] is True:
-                await ctx.send(f":x: **ERROR:** {ctx.author.mention}, that bot is denied.")
+                await ctx.send(f":x: **ERROR:** {ctx.author.mention}, that bot is denied. Contact staff if you want us to review it again.")
                 return
 
             elif row[0] is False and row[1] is False:
@@ -249,8 +249,8 @@ class UserbotsCog(commands.Cog):
             await ctx.send(":x: **ERROR:** That user bot is not submitted.")
             return
 
-        # Check if the user bot was already accepted.
-        if row[3] is False:
+        # Check if the user bot was already denied.
+        if row[3] is False and row[4] is True:
             await ctx.send(":x: **ERROR:** That user bot is already denied.")
             return
 
