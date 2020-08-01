@@ -1,7 +1,6 @@
 """Member logging."""
 
 import discord
-import typing as t
 import datetime
 
 from discord.ext import commands
