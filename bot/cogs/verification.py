@@ -10,6 +10,7 @@ from bot.bot import Bot
 from random import randint
 from asyncio.exceptions import TimeoutError
 
+
 class VerificationCog(commands.Cog):
     """The verification cog class."""
 
@@ -26,7 +27,7 @@ class VerificationCog(commands.Cog):
         default role."""
 
         # Text and description of the embed.
-        embed = discord.Embed(title="Welcome!", description=textwrap.dedent(f"""Welcome to Discord.py and Discord.js Discord server!
+        embed = discord.Embed(title="Welcome!", description=textwrap.dedent("""Welcome to Discord.py and Discord.js Discord server!
 
         We are a community that aims to help both beginners and professionals
         who are into Discord.py and/or Discord.js. We also have code examples,
@@ -109,6 +110,7 @@ class VerificationCog(commands.Cog):
         # Add role to user.
         role_to_assign = member.guild.get_role(self.bot.constants["server"]["public-roles"]["ids"]["human"])
         await member.add_roles(role_to_assign, reason="User verified")
+
 
 def setup(bot: Bot) -> None:
     bot.add_cog(VerificationCog(bot))

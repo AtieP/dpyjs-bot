@@ -5,10 +5,10 @@ used to contact the target user via a bot.
 
 import discord
 import textwrap
-import typing as t
 
 from discord.ext import commands
 from bot.bot import Bot
+
 
 class ContactCog(commands.Cog):
     """Contact cog class."""
@@ -21,14 +21,14 @@ class ContactCog(commands.Cog):
     @commands.command(name="contact")
     # TODO: Some fuckery to allow self inside decorators
     # NOTE: See PureF snippets
-    #@commands.has_any_role(
+    # @commands.has_any_role(
     #    self.bot.constants["server"]["staff-roles"]["names"]["staff"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["moderator"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["manager"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["administrator"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["head-admins"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["owner"]
-    #)
+    # )
     @commands.has_role("Staff")
     async def contact(self, ctx: commands.Context, member: discord.Member, *, message: str) -> None:
         """Sends a message to a member of the guild via the bot not anonymously."""
@@ -64,14 +64,14 @@ class ContactCog(commands.Cog):
     @commands.command(name="acontact")
     # TODO: Some fuckery to allow self inside decorators
     # NOTE: See PureF snippets
-    #@commands.has_any_role(
+    # @commands.has_any_role(
     #    self.bot.constants["server"]["staff-roles"]["names"]["staff"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["moderator"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["manager"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["administrator"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["head-admins"],
     #    self.bot.constants["server"]["staff-roles"]["names"]["owner"]
-    #)
+    # )
     @commands.has_role("Staff")
     async def acontact(self, ctx: commands.Context, member: discord.Member, *, message: str) -> None:
         """Sends a message to a member of the guild via the bot anonymously."""
@@ -103,6 +103,7 @@ class ContactCog(commands.Cog):
             await ctx.send(":x: **ERROR:** Invalid member specified.")
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
+
 
 def setup(bot: Bot) -> None:
     bot.add_cog(ContactCog(bot))

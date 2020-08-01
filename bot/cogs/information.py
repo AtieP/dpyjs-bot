@@ -1,6 +1,5 @@
 """Information module."""
 
-import datetime
 import discord
 import textwrap
 

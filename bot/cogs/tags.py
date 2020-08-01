@@ -45,7 +45,7 @@ class TagCog(commands.Cog):
         """Sends a specific tag."""
 
         try:
-            embed = discord.Embed(description=self.tags_dict[tag_name], color=self.bot.constants["style"]["colors"]["normal"])
+            embed: discord.Embed = discord.Embed(description=self.tags_dict[tag_name], color=self.bot.constants["style"]["colors"]["normal"])
             await ctx.send(embed=embed)
 
         except KeyError:
@@ -71,7 +71,7 @@ class TagCog(commands.Cog):
         for tag in self.tags_dict.keys():
             tags += f"`{tag}` "
 
-        embed = discord.Embed(title="Available tags", description=tags, color=self.bot.constants["style"]["colors"]["normal"])
+        embed: discord.Embed = discord.Embed(title="Available tags", description=tags, color=self.bot.constants["style"]["colors"]["normal"])
         await ctx.send(embed=embed)
 
     @staticmethod
