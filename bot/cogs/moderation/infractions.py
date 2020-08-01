@@ -1,12 +1,13 @@
 """Infractions module."""
 
-import discord
 import datetime
+import discord
 import textwrap
 import typing as t
 
 from discord.ext import commands
 from bot.bot import Bot
+
 
 class Infractions(commands.Cog):
     """Applies and pardones infractions."""
@@ -54,7 +55,8 @@ class Infractions(commands.Cog):
         reason: t.Union[str, None],
         hidden: bool,
         inserted_at: datetime.datetime.now,
-        expires_at: t.Union[datetime.datetime.now, None]
+        expires_at: t.Union[datetime.datetime.now, None],
+        active: bool
     ) -> None:
         """This function saves an infraction on the database."""
 
@@ -63,11 +65,11 @@ class Infractions(commands.Cog):
         self.bot.database_cursor.execute(
             """
             INSERT INTO infractions (
-            moderator_id, infractor_id, action_type, reason, hidden, inserted_at, expires_at)
+            moderator_id, infractor_id, action_type, reason, hidden, inserted_at, expires_at, active)
             VALUES
-            (%s, %s, %s, %s, %s, %s, %s)""",
+            (%s, %s, %s, %s, %s, %s, %s, %s)""",
             (moderator.id, infractor.id, action_type, reason, hidden, str(inserted_at),
-            str(expires_at) if expires_at else None)
+            str(expires_at) if expires_at else None, active)
         )
 
         self.bot.database_connection.commit()
@@ -119,7 +121,8 @@ class Infractions(commands.Cog):
             reason,
             False,
             datetime.datetime.now(),
-            None
+            None,
+            False
         )
 
         await self.save_infraction_into_modlog_channel(
@@ -177,7 +180,8 @@ class Infractions(commands.Cog):
             reason,
             True,
             datetime.datetime.now(),
-            None
+            None,
+            False
         )
 
         await self.save_infraction_into_modlog_channel(
@@ -249,7 +253,8 @@ class Infractions(commands.Cog):
             reason,
             False,
             datetime.datetime.now(),
-            None
+            None,
+            True
         )
 
         await self.save_infraction_into_modlog_channel(
@@ -307,7 +312,8 @@ class Infractions(commands.Cog):
             reason,
             True,
             datetime.datetime.now(),
-            None
+            None,
+            True
         )
 
         await self.save_infraction_into_modlog_channel(
@@ -331,6 +337,7 @@ class Infractions(commands.Cog):
             await ctx.send(':x: **ERROR:** Invalid member specified.')
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
+
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Infractions(bot))

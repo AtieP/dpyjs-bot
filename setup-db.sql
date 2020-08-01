@@ -18,7 +18,8 @@ CREATE TABLE infractions (
 	reason VARCHAR(512),
 	hidden BOOL NOT NULL,
 	inserted_at TIMESTAMPTZ NOT NULL,
-	expires_at TIMESTAMPTZ NOT NULL
+	expires_at TIMESTAMPTZ,
+	active BOOL NOT NULL,
 );
 
 CREATE TABLE user_bots (

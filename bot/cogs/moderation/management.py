@@ -1,13 +1,12 @@
 """Management module."""
 
-import datetime
 import discord
 import itertools
 import typing as t
 
-
 from discord.ext import commands
 from bot.bot import Bot
+
 
 class ManagementCog(commands.Cog):
     """This cog contains management commands."""
@@ -87,6 +86,7 @@ class ManagementCog(commands.Cog):
         embed.add_field(name="Inserted at", value=row[6], inline=False)
         embed.add_field(name="Expires at", value="N/A" if not row[7] else row[7], inline=False)
         embed.add_field(name="Reason", value=row[4], inline=False)
+        embed.add_field(name="Active", value=row[8], inline=False)
         await ctx.send(embed=embed)
 
     @infraction.error
