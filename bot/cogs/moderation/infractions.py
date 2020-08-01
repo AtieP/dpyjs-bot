@@ -134,7 +134,7 @@ class Infractions(commands.Cog):
             "Right now"
         )
 
-        await ctx.send(f":white_check_mark: **SUCCESS:** Kicked {member.mention} for {reason}")
+        await ctx.send(f":white_check_mark: **SUCCESS:** Kicked {member.mention} for: {reason}")
 
     @kick.error
     async def kick_error(self, ctx: commands.Context, error: Exception) -> None:
@@ -193,7 +193,7 @@ class Infractions(commands.Cog):
             "Right now"
         )
 
-        await ctx.send(f":white_check_mark: **SUCCESS:** Shadow-kicked {member.mention} for {reason}")
+        await ctx.send(f":white_check_mark: **SUCCESS:** Shadow-kicked {member.mention} for: {reason}")
 
     @shadowkick.error
     async def shadowkick_error(self, ctx: commands.Context, error: Exception) -> None:
@@ -266,7 +266,7 @@ class Infractions(commands.Cog):
             "N/A"
         )
 
-        await ctx.send(f":white_check_mark: **SUCCESS:** Permanently banned {member.mention} for {reason}")
+        await ctx.send(f":white_check_mark: **SUCCESS:** Permanently banned {member.mention} for: {reason}")
 
     @ban.error
     async def ban_error(self, ctx: commands.Context, error: Exception) -> None:
@@ -325,7 +325,7 @@ class Infractions(commands.Cog):
             "N/A"
         )
 
-        await ctx.send(f":white_check_mark: **SUCCESS:** Permanently shadow-banned {member.mention} for {reason}")
+        await ctx.send(f":white_check_mark: **SUCCESS:** Permanently shadow-banned {member.mention} for: {reason}")
 
     @shadowban.error
     async def shadowban_error(self, ctx: commands.Context, error: Exception) -> None:
@@ -338,6 +338,64 @@ class Infractions(commands.Cog):
         else:
             await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
 
+    @commands.command(name="hackban", aliases=["hb"])
+    @commands.has_guild_permissions(ban_members=True)
+    async def hackban(self, ctx: commands.Context, member: int, *, reason: t.Optional[str] = None) -> None:
+        """Bans a member that isn't on the server."""
+
+        member = discord.Object(id=member)
+
+        if member.id == ctx.author.id:
+            await ctx.send(":x: **ERROR:** You can't hackban yourself.")
+            return
+
+        member_in_server = False
+
+        for m in ctx.guild.members:
+            if m.id == member.id:
+                member_in_server = True
+                break
+
+        if member_in_server:
+            await ctx.send(":x: **ERROR:** The member is on the server. Hint: use `ban` command.")
+            return
+
+        if not reason: reason = "No reason specified."
+
+        await ctx.guild.ban(member, reason=textwrap.shorten(reason, 512, placeholder="..."), delete_message_days=0)
+
+        self.save_infraction_into_db(
+            ctx.author,
+            member,
+            "ban",
+            reason,
+            True,
+            datetime.datetime.now(),
+            None,
+            True
+        )
+
+        await self.save_infraction_into_modlog_channel(
+            ctx.author,
+            member,
+            "Ban",
+            reason,
+            datetime.datetime.now(),
+            "N/A"
+        )
+
+        await ctx.send(f":white_check_mark: **SUCCESS:** Permanently banned {member.id} for: {reason}")
+
+    @hackban.error
+    async def hackban_error(self, ctx: commands.Context, error: Exception) -> None:
+        if isinstance(error, commands.errors.MissingPermissions):
+            await ctx.send(':x: **ERROR:** You don\'t have "ban members" permission.')
+        elif isinstance(error, commands.errors.MissingRequiredArgument):
+            await ctx.send(':x: **ERROR:** No member specified.')
+        elif isinstance(error, commands.errors.BadArgument):
+            await ctx.send(':x: **ERROR:** Invalid member specified. Hint: did you specify an ID?')
+        else:
+            await ctx.send(f":x: **FATAL ERROR:** {error}\nPlease, contact the moderation team as soon as possible.")
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Infractions(bot))
