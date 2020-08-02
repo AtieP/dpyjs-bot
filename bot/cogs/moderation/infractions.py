@@ -79,6 +79,10 @@ class Infractions(commands.Cog):
     async def kick(self, ctx: commands.Context, member: discord.Member, *, reason: t.Optional[str] = None):
         """Applies a kick to the specifed user."""
 
+        if member == ctx.me:
+            await ctx.send(":x: **ERROR:** You can't kick me!")
+            return
+
         if ctx.author.top_role <= member.top_role and ctx.author == member:
             await ctx.send(":x: **ERROR:** You can only kick people with a role below than yours. Also, you can't kick youself.")
             return
@@ -152,6 +156,10 @@ class Infractions(commands.Cog):
     async def shadowkick(self, ctx: commands.Context, member: discord.Member, *, reason: t.Optional[str] = None) -> None:
         """Kicks the specified member silently, without notifying him."""
 
+        if member == ctx.me:
+            await ctx.send(":x: **ERROR:** You can't shadow-kick me!")
+            return
+
         if ctx.author.top_role <= member.top_role and ctx.author == member:
             await ctx.send(":x: **ERROR:** You can only shadow-kick people with a role below than yours. Also, you can't shadow-kick youself.")
             return
@@ -210,6 +218,10 @@ class Infractions(commands.Cog):
     @commands.has_guild_permissions(ban_members=True)
     async def ban(self, ctx: commands.Context, member: discord.Member, *, reason: t.Optional[str] = None) -> None:
         """Bans a member permanently from the server."""
+
+        if member == ctx.me:
+            await ctx.send(":x: **ERROR:** You can't ban me!")
+            return
 
         if ctx.author.top_role <= member.top_role and ctx.author == member:
             await ctx.send(":x: **ERROR:** You can only ban people with a role below than yours. Also, you can't ban youself.")
@@ -283,6 +295,10 @@ class Infractions(commands.Cog):
     @commands.has_guild_permissions(ban_members=True)
     async def shadowban(self, ctx: commands.Context, member: discord.Member, *, reason: t.Optional[str] = None) -> None:
         """Bans a member permanently from the server, without notifying the infracted user."""
+
+        if member == ctx.me:
+            await ctx.send(":x: **ERROR:** You can't shadow-ban me!")
+            return
 
         if ctx.author.top_role <= member.top_role and ctx.author == member:
             await ctx.send(":x: **ERROR:** You can only shadow-ban people with a role below than yours. Also, you can't shadow-ban youself.")
