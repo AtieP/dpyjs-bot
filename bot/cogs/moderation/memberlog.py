@@ -34,7 +34,6 @@ class ModLogCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         if row:
             await member.add_roles(member.guild.get_role(self.bot.constants["server"]["bot-roles"]["ids"]["bot-testers"]))
@@ -72,7 +71,6 @@ class ModLogCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         # If so, kick the user bot and delete bot submission.
         if row:

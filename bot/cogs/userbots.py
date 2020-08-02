@@ -53,7 +53,6 @@ class UserbotsCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         if row:
             if row[0] is True:
@@ -95,8 +94,7 @@ class UserbotsCog(commands.Cog):
         embed.add_field(name="Submittor", value=str(ctx.author), inline=False)
         embed.add_field(
             name="Submittor ID",
-            value=str(
-                ctx.author.id),
+            value=str(ctx.author.id),
             inline=False)
         embed.add_field(
             name="Invite link",
@@ -138,7 +136,6 @@ class UserbotsCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         if not row:
             await ctx.send(":x: **ERROR:** That user bot is not submitted.")
@@ -163,7 +160,6 @@ class UserbotsCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         bot_owner: discord.Member = ctx.guild.get_member(row[0])
 
@@ -243,7 +239,6 @@ class UserbotsCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         if not row:
             await ctx.send(":x: **ERROR:** That user bot is not submitted.")
@@ -268,7 +263,6 @@ class UserbotsCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         bot_owner: discord.Member = ctx.guild.get_member(row[0])
 
@@ -278,6 +272,7 @@ class UserbotsCog(commands.Cog):
                 "DELETE FROM user_bots WHERE bot_id = %s",
                 (bot.id,)
             )
+            self.bot.database_connection.commit()
             await bot.kick(reason="Owner left")
 
         elif bot_owner:
@@ -341,7 +336,6 @@ class UserbotsCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         if not row:
             await ctx.send(":x: **ERROR:** That bot is not registered on the database.")

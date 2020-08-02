@@ -27,7 +27,6 @@ class ManagementCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchall()
-        self.bot.database_connection.commit()
 
         # Check if there are no infractions for that user.
         flatten = itertools.chain.from_iterable
@@ -67,7 +66,6 @@ class ManagementCog(commands.Cog):
         )
 
         row = self.bot.database_cursor.fetchone()
-        self.bot.database_connection.commit()
 
         if not row:
             await ctx.send(f":x: **ERROR:** Could not find infraction **#{infr_id}**.")
