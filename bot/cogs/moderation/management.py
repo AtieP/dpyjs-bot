@@ -30,8 +30,8 @@ class ManagementCog(commands.Cog):
 
         # Check if there are no infractions for that user.
         flatten = itertools.chain.from_iterable
-        infractions_list_flatten = list(flatten(row))
-        if not infractions_list_flatten:
+        row = list(flatten(row))
+        if not row:
             await ctx.send(":x: **ERROR:** This user has no infractions.")
             return
 
@@ -41,7 +41,7 @@ class ManagementCog(commands.Cog):
             color=self.bot.constants["style"]["colors"]["normal"]
         )
         embed.add_field(name="Infraction count", value=len(row), inline=False)
-        embed.add_field(name="Infraction IDs", value=str(row).lstrip("([").rstrip("])").rstrip(","), inline=False)
+        embed.add_field(name="Infraction IDs", value=", ".join(str(infr_id) for infr_id in row), inline=False)
         await ctx.send(embed=embed)
 
     @infractions.error
