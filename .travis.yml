@@ -1,0 +1,11 @@
+language: python
+
+python:
+    - "3.8"
+
+install:
+    - pip install pipenv
+    - pipenv install --dev
+
+scripts:
+    - flake8 .
