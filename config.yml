@@ -1,0 +1,69 @@
+bot:
+    prefix: "b!"
+    token: !ENV "DPYJS_BOT_TOKEN"
+    database_url: !ENV "DPYJS_DATABASE_URL"
+    owners:
+        - 576071248933683250
+
+
+style:
+    colors:
+        red: 0xcd6d6d
+        green: 0x68c290
+        orange: 0xf9cb54
+        default: 0x7289da
+
+    emojis:
+        status_online: <:online:732158493393420368>
+        status_idle: <:idle:732158513891246110>
+        status_dnd: <:dnd:732158526843125780>
+        status_offline: <:invisible:732158537299656807>
+
+
+server:
+    roles:
+       owner: 715209664417103912
+       admins: 744956262977896549
+       moderators: 715209789315088475
+       staff: 715214137331941396
+       trial_staff: 718586753555890177
+       core_developers: 747881609713418331
+       muted: 718092620982911007
+       user_bot: 717039041362526303
+       bot_testers: 722519476905574501
+       human: 715219408494133338
+       announcements: 728231267874897991
+
+    channels:
+       small_announcements: 717029828976574554
+       announcements: 717029914360020992
+
+       # Logs
+       filter_alerts: 740125581378846781
+       user_bots: 722832289955971183
+       infractions: 722850761259745290
+       message_logs: 745262017459257434
+       member_logs: 745265455614132234
+       errors: 747887347600719892
+       management: 749957319097319435
+
+    whitelisted_file_extensions:
+       whitelist:
+         - ".png"
+         - ".jpg"
+         - ".jpeg"
+         - ".webm"
+         - ".mp4"
+         - ".mkv"
+         - ".mov"
+         - ".m4v"
+         - ".mpeg"
+         - ".mpg"
+         - ".avi"
+         - ".gif"
+         - ".mp3"
+         - ".wav"
+         - ".ogg"
+         - ".xcf"
+         - ".svg"
+         - ".tiff"
