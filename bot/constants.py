@@ -2,7 +2,7 @@ import logging
 
 from os import environ
 from pathlib import Path
-from typing import Union
+from typing import Optional
 
 import yaml
 
@@ -10,7 +10,7 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
-def _env_constructor(loader, node) -> Union[str, None]:
+def _env_constructor(loader, node) -> Optional[str]:
     """Implements a custom YAML tag for loading enviroment variables."""
     variable = loader.construct_scalar(node)
     return environ.get(variable)
@@ -43,9 +43,9 @@ class YAMLGetter(type):
                 f'"{cls.section}" not found.'
             )
 
-
     def __getitem__(cls, name: str):
         cls.__getattr__(name)
+
 
 # Note: these variables are just hints
 class Bot(metaclass=YAMLGetter):
