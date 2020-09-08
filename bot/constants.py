@@ -1,8 +1,7 @@
 import logging
-
 from os import environ
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 import yaml
 
@@ -10,7 +9,7 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
-def _env_constructor(loader, node) -> Optional[str]:
+def _env_constructor(loader: str, node: str) -> Optional[str]:
     """Implements a custom YAML tag for loading enviroment variables."""
     variable = loader.construct_scalar(node)
     return environ.get(variable)
@@ -28,10 +27,14 @@ with open("config.yml") as f:
 
 
 class YAMLGetter(type):
+    """A metaclass with a magic method for extracting data from the YAML."""
 
     subsection = None
 
-    def __getattr__(cls, name: str):
+    def __getattr__(cls, name: str) -> Union[str, int, float, list, dict]:
+        """
+        Returns something from the YAML config file.
+        """
         try:
             if cls.subsection is not None:
                 return _CONFIG_FILE[cls.section][cls.subsection][name]
@@ -42,9 +45,6 @@ class YAMLGetter(type):
                 f'Name "{name}" or subsection "{cls.subsection}" or section '
                 f'"{cls.section}" not found.'
             )
-
-    def __getitem__(cls, name: str):
-        cls.__getattr__(name)
 
 
 # Note: these variables are just hints
