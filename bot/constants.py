@@ -50,6 +50,7 @@ class YAMLGetter(type):
 # Note: these variables are just hints
 class Bot(metaclass=YAMLGetter):
     """Metaclass for accessing bot data."""
+
     section = "bot"
 
     prefix: str
@@ -59,6 +60,7 @@ class Bot(metaclass=YAMLGetter):
 
 class Colors(metaclass=YAMLGetter):
     """Metaclass for accessing color values."""
+
     section = "style"
     subsection = "colors"
 
@@ -70,6 +72,7 @@ class Colors(metaclass=YAMLGetter):
 
 class Emojis(metaclass=YAMLGetter):
     """Metaclass for accessing emote string values."""
+
     section = "style"
     subsection = "emojis"
 
@@ -81,6 +84,7 @@ class Emojis(metaclass=YAMLGetter):
 
 class Roles(metaclass=YAMLGetter):
     """Metaclass for accessing role IDs."""
+
     section = "server"
     subsection = "roles"
 
@@ -99,6 +103,7 @@ class Roles(metaclass=YAMLGetter):
 
 class WhitelistedFileExtensions(metaclass=YAMLGetter):
     """Metaclass for accessing whitelisted file extensions."""
+
     section = "server"
     subsection = "whitelisted_file_extensions"
 
@@ -107,5 +112,6 @@ class WhitelistedFileExtensions(metaclass=YAMLGetter):
 
 class Channels(metaclass=YAMLGetter):
     """Meteclass for accessing channel IDs."""
+    
     section = "server"
     subsection = "channels"
