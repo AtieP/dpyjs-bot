@@ -112,6 +112,6 @@ class WhitelistedFileExtensions(metaclass=YAMLGetter):
 
 class Channels(metaclass=YAMLGetter):
     """Meteclass for accessing channel IDs."""
-    
+
     section = "server"
     subsection = "channels"
