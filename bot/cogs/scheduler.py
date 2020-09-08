@@ -1,11 +1,10 @@
-"""Schedules things with expirations."""
-
 from bot.bot import Bot
 
 from discord.ext import commands
 
 
 class Scheduler(commands.Cog):
+    """Schedules expiration dates for things."""
     pass
 
 
