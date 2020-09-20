@@ -68,7 +68,7 @@ class InfractionsCog(commands.Cog):
         try:
             await bad_actor.send(embed=embed)
         except HTTPException:
-            await ctx.send(f":warn: Could not DM {bad_actor.mention}")
+            await ctx.send(f":warning: Could not DM {bad_actor.mention}")
 
     def respects_role_hierarchy(
         self,
