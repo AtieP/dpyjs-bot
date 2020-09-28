@@ -1,7 +1,7 @@
 import logging
 import textwrap
 from datetime import datetime
-from typing import Literal, Optional, Union
+from typing import Literal, Optional
 
 from bot.bot import Bot
 from bot.constants import Colors, Roles
