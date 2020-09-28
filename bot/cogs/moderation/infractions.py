@@ -24,7 +24,7 @@ class InfractionsCog(commands.Cog):
         self,
         moderator_id: int,
         bad_actor_id: int,
-        action: Union[Literal["kick", "ban", "mute", "tempban"]],
+        action: Literal["kick", "ban", "mute", "tempban"],
         inserted_at: datetime,
         expires_at: Optional[datetime],
         reason: str
@@ -141,7 +141,7 @@ class InfractionsCog(commands.Cog):
             )
         await self.dm_bad_actor(ctx, bad_actor, Colors.red, "Ban", reason)
         reason = textwrap.shorten(reason, 512, placeholder="...")
-        await ctx.guild.ban(bad_actor, reason=reason)
+        await ctx.guild.ban(bad_actor, reason=reason, delete_message_days=0)
         await self.save_infraction_into_database(
             ctx.author.id,
             bad_actor.id,
