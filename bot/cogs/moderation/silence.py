@@ -64,6 +64,7 @@ class SilenceCog(commands.Cog):
         until_minutes = until_seconds / 60
         await ctx.channel.set_permissions(
             ctx.guild.get_role(Roles.human),
+            add_reactions=False,
             send_messages=False,
             read_messages=True,
             read_message_history=True
