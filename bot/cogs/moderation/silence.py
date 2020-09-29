@@ -1,7 +1,8 @@
 import asyncio
 import logging
 import textwrap
-from datetime import datetime
+from datetime import datetime, timedelta
+from typing import Optional
 
 from bot.bot import Bot
 from bot.constants import Channels, Colors, Roles
@@ -27,7 +28,8 @@ class SilenceCog(commands.Cog):
     async def silence(
         self,
         ctx: commands.Context,
-        until: DurationConverter
+        until: Optional[DurationConverter] = datetime.now() + \
+        timedelta(minutes=15)
     ) -> None:
         """Locks the channel for the specified time."""
         if ctx.channel in self._silenced_channels:
