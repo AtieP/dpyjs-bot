@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Literal, Optional
 
 from bot.bot import Bot
-from bot.constants import Colors, Roles
+from bot.constants import Channels, Colors, Roles
 
 from discord import Embed, HTTPException, Member
 from discord.ext import commands
@@ -41,6 +41,69 @@ class InfractionsCog(commands.Cog):
             """,
             moderator_id, bad_actor_id, action, inserted_at, expires_at, reason
         )
+
+    async def save_infraction_into_infractions_channel(
+        self,
+        ctx: commands.Context,
+        moderator: Member,
+        bad_actor: Member,
+        action: Literal["Kick", "Ban", "Mute", "Temporary ban"],
+        inserted_at: datetime,
+        reason: str,
+        expires_at: datetime = None
+    ) -> None:
+        """Saves an infraction into the #infractions channel."""
+        embed = Embed(
+            title="Infraction applied",
+            color=Colors.default
+        )
+        embed.add_field(
+            name="Type",
+            value=action,
+            inline=False
+        )
+        embed.add_field(
+            name="Bad actor",
+            value=f"{bad_actor.mention}",
+            inline=False
+        )
+        embed.add_field(
+            name="Bad actor ID",
+            value=f"{bad_actor.id}",
+            inline=False
+        )
+        embed.add_field(
+            name="Moderator",
+            value=f"{moderator.mention}",
+            inline=False
+        )
+        embed.add_field(
+            name="Moderator ID",
+            value=f"{moderator.id}",
+            inline=False
+        )
+        embed.add_field(
+            name="Inserted at",
+            value=f"{inserted_at}",
+            inline=False
+        )
+        embed.add_field(
+            name="Expires at",
+            value=f"{expires_at}",
+            inline=False
+        )
+        embed.add_field(
+            name="Reason",
+            value=reason,
+            inline=False
+        )
+        embed.add_field(
+            name="Context",
+            value=ctx.message.jump_url,
+            inline=False
+        )
+        infractions_log_channel = ctx.guild.get_channel(Channels.infractions)
+        await infractions_log_channel.send(embed=embed)
 
     async def dm_bad_actor(
         self,
@@ -109,6 +172,14 @@ class InfractionsCog(commands.Cog):
         await self.dm_bad_actor(ctx, bad_actor, Colors.orange, "Kick", reason)
         reason = textwrap.shorten(reason, 512, placeholder="...")
         await ctx.guild.kick(bad_actor, reason=reason)
+        await self.save_infraction_into_infractions_channel(
+            ctx,
+            ctx.author,
+            bad_actor,
+            "Kick",
+            datetime.now(),
+            reason
+        )
         await self.save_infraction_into_database(
             ctx.author.id,
             bad_actor.id,
@@ -142,6 +213,14 @@ class InfractionsCog(commands.Cog):
         await self.dm_bad_actor(ctx, bad_actor, Colors.red, "Ban", reason)
         reason = textwrap.shorten(reason, 512, placeholder="...")
         await ctx.guild.ban(bad_actor, reason=reason, delete_message_days=0)
+        await self.save_infraction_into_infractions_channel(
+            ctx,
+            ctx.author,
+            bad_actor,
+            "Ban",
+            datetime.now(),
+            reason
+        )
         await self.save_infraction_into_database(
             ctx.author.id,
             bad_actor.id,
