@@ -28,7 +28,7 @@ class SilenceCog(commands.Cog):
     async def silence(
         self,
         ctx: commands.Context,
-        until: Optional[DurationConverter] = datetime.now() + \
+        until: Optional[DurationConverter] = datetime.now() + \ 
         timedelta(minutes=15)
     ) -> None:
         """Locks the channel for the specified time."""
