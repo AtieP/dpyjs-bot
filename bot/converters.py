@@ -1,9 +1,10 @@
 import re
 from datetime import datetime, timedelta
-from typing import Dict
+from typing import Optional
 
 import dateutil.parser
 import dateutil.tz
+from dateutil.relativedelta import relativedelta
 
 from discord.ext import commands
 
@@ -34,6 +35,19 @@ class DurationConverter(commands.Converter):
     Example of a duration string: 1h2m3s
     """
 
+    compiled = re.compile(
+        r"(?:(?P<years>\d)y)?"
+        r"(?:(?P<months>\d{1,2})mo)?"
+        r"(?:(?P<weeks>\d{1,4})w)?"
+        r"(?:(?P<days>\d{1,5})d)?"
+        r"(?:(?P<hours>\d{1,5})h)?"
+        r"(?:(?P<minutes>\d{1,5})m)?"
+        r"(?:(?P<seconds>\d{1,5})s)?"
+    )
+
+    def __init__(self, *, default: Optional[timedelta] = None):
+        self.default = default
+
     async def convert(
         self,
         ctx: commands.Context,
@@ -43,45 +57,21 @@ class DurationConverter(commands.Converter):
         Converts a duration string into a `datetime.datetime` object.
 
         Example of a duration string: 1h2m3s
+
+        If an invalid duration string was provided and a default timedelta
+        was specified, the default timedelta will be used instead.
         """
-        time_string_regex = re.compile(
-            r"(?:(?P<years>\d+)y)?"
-            r"(?:(?P<weeks>\d+)w)?"
-            r"(?:(?P<hours>\d+)h)?"
-            r"(?:(?P<minutes>\d+)m)?"
-            r"(?:(?P<seconds>\d+)s)?"
-        )
-        duration_dict: Dict[str, int] = time_string_regex.match(
-            duration_str
-        ).groupdict()
-
-        # Convert None to 0, else, convert string to int
-        for key, value in duration_dict.items():
-            if value is None:
-                duration_dict[key] = 0
+        match = self.compiled.fullmatch(duration_str)
+        if match is None or not match.group(0):
+            if self.default is not None:
+                return datetime.now() + self.default
             else:
-                try:
-                    duration_dict[key] = int(value)
-                except ValueError as e:
-                    raise commands.errors.BadArgument(
-                        f"{e.__class__.__name__}: {e}"
-                    )
+                raise commands.BadArgument(
+                    f'Invalid duration string provided: "{duration_str}"'
+                )
 
-        # Now, convert all the items above to seconds
-        seconds = 0
-        for key in duration_dict.keys():
-            if key == "years":
-                seconds += duration_dict[key] * 31556952
-            elif key == "weeks":
-                seconds += duration_dict[key] * 604800
-            elif key == "day":
-                seconds += duration_dict[key] * 86400
-            elif key == "hours":
-                seconds += duration_dict[key] * 3600
-            elif key == "minutes":
-                seconds += duration_dict[key] * 60
-            else:
-                seconds += duration_dict[key]
-
-        current_time = datetime.now() + timedelta(seconds=seconds)
-        return current_time
+        duration_dict = {
+            k: int(v)
+            for k, v in match.groupdict(default=0).items()
+        }
+        return datetime.now() + relativedelta(**duration_dict)
