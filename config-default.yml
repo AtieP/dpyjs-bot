@@ -1,6 +1,5 @@
 bot:
     prefix: "b!"
-    database_url: !ENV "DPYJS_DATABASE_URL"
     token: !ENV "DPYJS_BOT_TOKEN"
     owners:
         - 576071248933683250
