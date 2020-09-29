@@ -46,6 +46,12 @@ class DurationConverter(commands.Converter):
     )
 
     def __init__(self, *, default: Optional[timedelta] = None):
+        """
+        Initialises the duration converter. The optional `default` keyword
+        argument is a `datetime.timedelta` instance that represents the
+        default duration span to return in case an invalid duration string
+        was provided by a user.
+        """
         self.default = default
 
     async def convert(
