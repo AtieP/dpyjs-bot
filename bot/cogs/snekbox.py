@@ -35,7 +35,8 @@ class SnekboxCog(commands.Cog):
 
         await ctx.send(
             content=(
-                f"{ctx.author.mention} Your code exited with status code {status_code}.\n"
+                f"{ctx.author.mention} "
+                f"Your code exited with status code {status_code}.\n"
                 f"Result:\n"
                 f"```\n"
                 f"{output}"
