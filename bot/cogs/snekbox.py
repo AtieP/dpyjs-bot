@@ -3,12 +3,8 @@ import aiohttp
 from bot.bot import Bot
 from bot.constants import Bot as Bot_constants
 
-
 from discord import AllowedMentions
 from discord.ext import commands
-
-
-SIGKILL = 9
 
 
 class SnekboxCog(commands.Cog):
