@@ -32,7 +32,7 @@ class AntiMalwareCog(commands.Cog):
 
         for attachment in message.attachments:
             _, extension = splitext(attachment.url)
-            if extension not in WhitelistedFileExtensions.whitelist:
+            if extension.lower() not in WhitelistedFileExtensions.whitelist:
                 break
         else:
             return
