@@ -31,11 +31,11 @@ class SnekboxCog(commands.Cog):
         output = "\n".join(
             line for number, line in enumerate(lines) if number < 10
         )
-        output[:1000]
+        output = output[:1850]
 
         await ctx.send(
             content=(
-                f"Your code exited with status code {status_code}.\n"
+                f"{ctx.author.mention} Your code exited with status code {status_code}.\n"
                 f"Result:\n"
                 f"```\n"
                 f"{output}"
