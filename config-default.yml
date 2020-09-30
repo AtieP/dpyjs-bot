@@ -4,6 +4,7 @@ bot:
     token: !ENV "DPYJS_BOT_TOKEN"
     owners:
         - 576071248933683250
+    snekbox_url: !ENV "DPYJS_SNEKBOX_URL"
 
 
 style:

@@ -35,6 +35,7 @@ bot.load_extension("bot.cogs.antivirus")
 bot.load_extension("bot.cogs.error_handler")
 bot.load_extension("bot.cogs.information")
 bot.load_extension("bot.cogs.owner")
+bot.load_extension("bot.cogs.snekbox")
 bot.load_extension("bot.cogs.tags")
 
 bot.load_extension("bot.cogs.moderation.infractions")
