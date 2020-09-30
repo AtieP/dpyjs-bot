@@ -125,7 +125,7 @@ class SilenceCog(commands.Cog):
 
     def _datetime_to_seconds(self, datetime_obj: datetime) -> int:
         """Converts a datetime object to seconds."""
-        return int(datetime_obj.strftime("%s"))
+        return int(datetime_obj.timestamp())
 
 
 def setup(bot: Bot) -> None:

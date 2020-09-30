@@ -1,6 +1,5 @@
 import re
 from datetime import datetime
-from typing import Optional
 
 import dateutil.parser
 import dateutil.tz
@@ -49,7 +48,7 @@ class DurationConverter(commands.Converter):
         self,
         ctx: commands.Context,
         duration_str: str
-    ) -> int:
+    ) -> datetime:
         """
         Converts a duration string into a `datetime.datetime` object.
 
