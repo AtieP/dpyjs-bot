@@ -41,9 +41,9 @@ moderation = [
     if f.endswith(".py")
 ]
 
-for loadfiles in cogs:
-    bot.load_extension(f"bot.cogs.{loadfiles}")
-for files in moderation:
-    bot.load_extension(f"bot.cogs.moderation.{files}")
+for cog in cogs:
+    bot.load_extension(f"bot.cogs.{cog}")
+for cog in moderation:
+    bot.load_extension(f"bot.cogs.moderation.{cog}")
 
 bot.run(constants.Bot.token)
