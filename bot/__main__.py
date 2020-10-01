@@ -32,15 +32,18 @@ bot = Bot(
     )
 )
 
-cogs = [f[:-3] for f in listdir("bot/cogs") 
-    if f.endswith(".py")]
-moderation = [f[:-3] for f in listdir("bot/cogs/moderation")
-    if f.endswith(".py")]
+cogs = [
+    f[:-3] for f in listdir("bot/cogs") 
+    if f.endswith(".py")
+]
+moderation = [
+    f[:-3] for f in listdir("bot/cogs/moderation")
+    if f.endswith(".py")
+]
 
 for loadfiles in cogs:
     bot.load_extension(f"bot.cogs.{loadfiles}")
 for files in moderation:
     bot.load_extension(f"bot.cogs.moderation.{files}")
-
 
 bot.run(constants.Bot.token)
