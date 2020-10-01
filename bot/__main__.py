@@ -33,17 +33,17 @@ bot = Bot(
 )
 
 cogs = [
-    f[:-3] for f in listdir("bot/cogs") 
+    f[:-3] for f in listdir("bot/cogs")
     if f.endswith(".py")
 ]
-moderation = [
+moderation_cogs = [
     f[:-3] for f in listdir("bot/cogs/moderation")
     if f.endswith(".py")
 ]
 
 for cog in cogs:
     bot.load_extension(f"bot.cogs.{cog}")
-for cog in moderation:
+for cog in moderation_cogs:
     bot.load_extension(f"bot.cogs.moderation.{cog}")
 
 bot.run(constants.Bot.token)
