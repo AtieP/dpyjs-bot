@@ -1,5 +1,6 @@
 import logging
 import sys
+from os import listdir
 
 from bot import constants
 from bot.bot import Bot
@@ -31,17 +32,18 @@ bot = Bot(
     )
 )
 
-bot.load_extension("bot.cogs.antivirus")
-bot.load_extension("bot.cogs.error_handler")
-bot.load_extension("bot.cogs.filter")
-bot.load_extension("bot.cogs.information")
-bot.load_extension("bot.cogs.owner")
-bot.load_extension("bot.cogs.snekbox")
-bot.load_extension("bot.cogs.tags")
+cogs = [
+    f[:-3] for f in listdir("bot/cogs")
+    if f.endswith(".py")
+]
+moderation_cogs = [
+    f[:-3] for f in listdir("bot/cogs/moderation")
+    if f.endswith(".py")
+]
 
-bot.load_extension("bot.cogs.moderation.infractions")
-bot.load_extension("bot.cogs.moderation.member_log")
-bot.load_extension("bot.cogs.moderation.message_log")
-bot.load_extension("bot.cogs.moderation.silence")
+for cog in cogs:
+    bot.load_extension(f"bot.cogs.{cog}")
+for cog in moderation_cogs:
+    bot.load_extension(f"bot.cogs.moderation.{cog}")
 
 bot.run(constants.Bot.token)
