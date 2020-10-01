@@ -5,6 +5,7 @@ bot:
     owners:
         - 576071248933683250
     snekbox_url: !ENV "DPYJS_SNEKBOX_URL"
+    offensive_words_regex: !ENV "DPYJS_BAD_WORDS_REGEX"
 
 
 style:
@@ -40,7 +41,6 @@ server:
        announcements: 717029914360020992
 
        # Logs
-       filter_alerts: 740125581378846781
        user_bots: 722832289955971183
        infractions: 722850761259745290
        message_logs: 745262017459257434

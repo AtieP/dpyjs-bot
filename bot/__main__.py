@@ -33,6 +33,7 @@ bot = Bot(
 
 bot.load_extension("bot.cogs.antivirus")
 bot.load_extension("bot.cogs.error_handler")
+bot.load_extension("bot.cogs.filter")
 bot.load_extension("bot.cogs.information")
 bot.load_extension("bot.cogs.owner")
 bot.load_extension("bot.cogs.snekbox")

@@ -13,11 +13,13 @@ This bot is made specifically for the [Discord.py & Discord.js community.](https
 
 # Running the bot
 - Run `pipenv shell`
-- Set up these three enviroment variables: `DPYJS_DATABASE_URL`, `DPYJS_BOT_TOKEN` and `DPYJS_SNEKBOX_URL.`
-  `DPYJS_DATABASE_URL` is the database URL, if you made a database named `dpyjs` with
-  owner `dpyjs` that is running in `localhost` (127.0.0.1), `postgresql://dpyjs@localhost/dpyjs` is okay.
-  `DPYJS_SNEKBOX_URL` is required for the public eval command to work. If you want to set up Snekbox, please
-  [visit this page](https://github.com/python-discord/snekbox)
+- Set up these four enviroment variables: `DPYJS_DATABASE_URL`, `DPYJS_BOT_TOKEN`, `DPYJS_SNEKBOX_URL` and `DPYJS_BAD_WORDS_REGEX`.
+  - `DPYJS_BOT_TOKEN` is the bot's token.  
+  - `DPYJS_DATABASE_URL` is the database URL, if you made a database named `dpyjs` with
+  owner `dpyjs` that is running in `localhost` (127.0.0.1), `postgresql://dpyjs@localhost/dpyjs` is okay.  
+  - `DPYJS_SNEKBOX_URL` is required for the public eval command to work. If you want to set up Snekbox, please
+  [visit this page](https://github.com/python-discord/snekbox).  
+  - `DPYJS_BAD_WORDS_REGEX` is a regular expression with bad words.
 - Run `pipenv run start`
 
 
