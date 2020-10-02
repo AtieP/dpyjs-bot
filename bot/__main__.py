@@ -42,8 +42,6 @@ moderation_cogs = [
 ]
 
 for cog in cogs:
-    if cog == "snekbox":
-        continue
     bot.load_extension(f"bot.cogs.{cog}")
 for cog in moderation_cogs:
     bot.load_extension(f"bot.cogs.moderation.{cog}")
