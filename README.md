@@ -1,5 +1,6 @@
 # Discord.py & Discord.js Discord Bot
-This bot is made specifically for the [Discord.py & Discord.js community.](https://dpyjs.xyz).
+This bot is made specifically for the [Discord.py & Discord.js community.](https://dpyjs.xyz).  
+Server template for setting up easier the bot: https://discord.new/J4DTac8XPhFe 
 
 # Setting up the bot
 - Install PostgreSQL, and create a database called `dpyjs` with owner `dpyjs`
