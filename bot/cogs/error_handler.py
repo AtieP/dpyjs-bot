@@ -86,7 +86,7 @@ class ErrorHandler(commands.Cog):
         core_dev_role = ctx.guild.get_role(Roles.core_developers)
         core_developers_allowed_mention = AllowedMentions(
             everyone=False,
-            roles=[core_dev_role]
+            roles=[] if not core_dev_role else [core_dev_role]
         )
         embed = Embed(
             color=Colors.red
@@ -123,7 +123,7 @@ class ErrorHandler(commands.Cog):
             inline=False
         )
         await errors_channel.send(
-            f"{core_dev_role.mention}",
+            f"{'' if not core_dev_role else core_dev_role.mention}",
             allowed_mentions=core_developers_allowed_mention,
             embed=embed
         )

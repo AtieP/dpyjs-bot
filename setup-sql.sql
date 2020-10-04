@@ -7,3 +7,9 @@ CREATE TABLE infractions(
     expires_at TIMESTAMPTZ,
     reason VARCHAR(512)
 )
+CREATE TABLE tags(
+    name VARCHAR(32),
+    content TEXT,
+    owner_id BIGINT,
+    created_at TIMESTAMPTZ
+)
