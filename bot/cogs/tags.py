@@ -64,8 +64,8 @@ class TagsCog(commands.Cog):
                 content, name
             )
 
-    @commands.command()
-    async def tag(self, ctx: commands.Context, tag_name: str) -> None:
+    @commands.group(invoke_without_command=True)
+    async def tag(self, ctx: commands.Context, *, tag_name: str) -> None:
         """Returns the content of a tag."""
         content = await self.get_tag(tag_name)
         if not content:
@@ -74,34 +74,38 @@ class TagsCog(commands.Cog):
         await ctx.send(content["content"],
                        allowed_mentions=AllowedMentions(everyone=False))
 
-    @commands.command(aliases=["add-tag", "tagadd", "tag-add"])
+    @tag.command(aliases=["create"])
     @commands.has_role(Roles.staff)
-    async def addtag(self, ctx: commands.Context, name: str, *, content: str):
+    async def add(self, ctx: commands.Context, name: str, *, content: str):
         """Add new tag."""
-        if not await self.get_tag(name):
+        subcommands_protected = [
+            "add", "remove", "rem", "edit", "create",
+            "del", "delete", "rm", "list", "info"
+        ]
+        if await self.get_tag(name) or name in subcommands_protected:
+            return await ctx.send("I can't create the tag with that name "
+                                  + "because it's in subcommands of `tag`"
+                                  + " command or already taken from "
+                                  + "database\n"
+                                  + f"You may try again like this `{name}1`"
+                                  + f"or this `new_{name}`")
+        else:
             await self.add_tag(name, content,
                                ctx.author.id, ctx.message.created_at)
             return await ctx.send(f"Your new tag **{name}** has been added!")
-        else:
-            return await ctx.send(
-                f"The tag **{name}** is already added\n"
-                + "You may modify it instead."
-            )
 
-    @commands.command(aliases=["deltag", "tagdel", "rmtag", "tagrm",
-                               "deletetag", "tagdelete", "delete-tag",
-                               "remove-tag", "del-tag", "rm-tag"])
+    @tag.command(aliases=["rm", "del", "delete", "rem"])
     @commands.has_role(Roles.staff)
-    async def removetag(self, ctx: commands.Context, name: str):
+    async def remove(self, ctx: commands.Context, name: str):
         """Remove a tag from database."""
         if not await self.get_tag(name):
             return await ctx.send(f"The tag **{name}** is already removed")
         await self.remove_tag(name)
         await ctx.send(f"The tag **{name}** has been removed!")
 
-    @commands.group(aliases=["tagedit"])
+    @tag.group()
     @commands.has_role(Roles.staff)
-    async def edittag(self, ctx: commands.Context):
+    async def edit(self, ctx: commands.Context):
         """Edit the tag's name or content."""
         if not ctx.invoked_subcommand:
             return await ctx.send(
@@ -109,7 +113,7 @@ class TagsCog(commands.Cog):
                 + "`content`, `name`"
             )
 
-    @edittag.command()
+    @edit.command()
     async def content(self, ctx: commands.Context, name: str, *, text: str):
         """Edit a content of a tag."""
         if not await self.get_tag(name):
@@ -117,7 +121,7 @@ class TagsCog(commands.Cog):
         await self.edit_tag(1, name, text)
         await ctx.send("Successfully edited new content of a tag!")
 
-    @edittag.command()
+    @edit.command()
     async def name(self, ctx: commands.Context, name: str, *, text: str):
         """Edit a name of a tag."""
         if not await self.get_tag(name):
@@ -125,8 +129,8 @@ class TagsCog(commands.Cog):
         await self.edit_tag(0, name, text)
         await ctx.send("Successfully edited new name of a tag!")
 
-    @commands.command(aliases=["taglist", "tags"])
-    async def listtag(self, ctx: commands.Context):
+    @tag.command(name="list")
+    async def _list(self, ctx: commands.Context) -> None:
         """View list of tags stored in database."""
         lists = await self.list_tag()
         lists = map(lambda x: f"**{x['name']}**", lists)
@@ -134,8 +138,8 @@ class TagsCog(commands.Cog):
         embed.description = ", ".join(lists)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["infotag"])
-    async def taginfo(self, ctx: commands.Context, name: str):
+    @tag.command()
+    async def info(self, ctx: commands.Context, name: str):
         """View information about a specific tag by name."""
         tag = await self.get_tag(name)
         if not tag:
